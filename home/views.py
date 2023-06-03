@@ -5,13 +5,13 @@ from django.utils.translation import get_language
 
 def home(request):
     language = get_language()
-    #print(language)
+    print(language)
     
-    #try:
-    #    selected_language = Language.objects.get(code=language)
-    #except Language.DoesNotExist:
-    selected_language = Language.objects.get(code='pt')  # Use English as default language
-
+    try:
+        selected_language = Language.objects.get(code=language)
+    except Language.DoesNotExist:
+        selected_language = Language.objects.get(code='en')  # Use English as default language
+    
     slides = CarouselSlide.objects.filter(language=selected_language)
     marketing_items = MarketingItem.objects.filter(language=selected_language)
     featurettes = Featurette.objects.filter(language=selected_language)
