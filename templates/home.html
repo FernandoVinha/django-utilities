@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  
+  {% block head %} 
+    <style>
+      .container.marketing {
+        margin-top: 80px;
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/carousel.css' %}" rel="stylesheet">
+  {% endblock %}
+
+  {% if slides %}
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        {% for slide in slides %}
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %} aria-current="true" aria-label="Slide {{ forloop.counter }}"></button>
+        {% endfor %}
+      </div>
+      <div class="carousel-inner">
+        {% for slide in slides %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              <img src="{{ slide.image.url }}" class="bd-placeholder-img" width="100%" height="100%" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <div class="container">
+                <div class="carousel-caption {% if forloop.first %}text-start{% elif forloop.last %}text-end{% endif %}">
+                  {% if slide.title%}
+                  <h1>{{ slide.title }}</h1>
+                  {% endif %}
+                  {% if slide.content%}
+                  <p>{{ slide.content }}</p>
+                  {% endif %}
+                  {% if slide.button_text%}
+                  <p><a class="btn btn-lg btn-primary" href="{{ slide.button_link }}">{{ slide.button_text }}</a></p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          
+        {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  {% endif %}
+
+  {% if featurettes %}
+  {% for featurette in featurettes %}
+    <div class="row featurette">
+      {% if forloop.counter|divisibleby:2 %}
+        <div class="col-md-5 order-md-1">
+          <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="{{ featurette.image.url }}" alt="Featurette Image">
+        </div>
+        <div class="col-md-7 order-md-2">
+          <h2 class="featurette-heading">{{ featurette.heading }} <span class="text-muted">{{ featurette.subheading }}</span></h2>
+          <p class="lead">{{ featurette.content }}</p>
+        </div>
+      {% else %}
+        <div class="col-md-7">
+          <h2 class="featurette-heading">{{ featurette.heading }} <span class="text-muted">{{ featurette.subheading }}</span></h2>
+          <p class="lead">{{ featurette.content }}</p>
+        </div>
+        <div class="col-md-5">
+          <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="{{ featurette.image.url }}" alt="Featurette Image">
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% endif %}
+
+
+  {% if marketing_items %}
+  <div class="container marketing">
+    <div class="row">
+      {% for item in marketing_items %}
+        <div class="col-lg-4">
+          {% if item.image %}
+            <img src="{{ item.image.url }}" class="bd-placeholder-img rounded-circle" width="140" height="140" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+          {% else %}
+            <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <rect width="100%" height="100%" fill="#777"/>
+              <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+            </svg>
+          {% endif %}
+          {% if item.heading %}
+          <h2 class="text-light">{{ item.heading }}</h2>
+        {% endif %}
+        {% if item.content %}
+          <p class="text-light">{{ item.content }}</p>
+        {% endif %}
+        
+          {% if item.button_text %}
+            <p><a class="btn btn-secondary" href="{{ item.button_link }}">{{ item.button_text }}</a></p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
+
+{% endblock %}

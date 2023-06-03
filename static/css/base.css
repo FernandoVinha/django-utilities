@@ -1,0 +1,23 @@
+.fixed-top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1030;
+  }
+
+/* Add your custom styles here */
+.bg-light-theme {
+    background-color: #c6c6c7; /* Light theme background color */
+}
+.bg-dark-theme {
+    background-color: #343a40; /* Dark theme background color */
+}
+
+.hide-message {
+    animation: fadeout 2s forwards;
+}
+
+@keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; visibility: hidden; }
+}

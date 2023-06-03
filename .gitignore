@@ -161,3 +161,7 @@ cython_debug/
 config/
 coins/migrations/0001_initial.py
 countries/migrations/0001_initial.py
+
+home/migrations/0001_initial.py
+/carousel_images
+language/migrations/0001_initial.py
